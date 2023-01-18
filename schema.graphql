@@ -1,0 +1,80 @@
+type Contribution @entity {
+  id: Bytes!
+  timestamp: BigInt!
+  user: Bytes!
+  contributor: User!
+  bidNum: BigInt!
+  referralAddress: Bytes!
+  referralBidNum: BigInt!
+  cost: BigInt!
+  cashback: BigInt!
+  actualCost: BigInt!
+  forSale: Boolean!
+  links: BigInt!
+  linksLeft: BigInt!
+  toReferral: BigInt!
+  toLottery: BigInt!
+  toFund: BigInt!
+  btcRate: BigInt!
+  refunded: Boolean!
+  gifted: Boolean!
+}
+
+type Refund @entity(immutable: true) {
+  id: ID!
+  timestamp: BigInt!
+  user: Bytes!
+  bidNumber: BigInt!
+  bidId: Bytes!
+  amountRefunded: BigInt!
+  fromBank: BigInt!
+}
+
+type Lottery @entity(immutable: true) {
+  id: ID!
+  timestamp: BigInt!
+  number: BigInt!
+  winner: Bytes!
+  bank: BigInt!
+}
+
+type FutureLottery @entity {
+    id: ID!
+    participants: [User!]! @derivedFrom(field: "lottery")
+    participantIds: [Bytes!]!
+    bank: BigInt!
+    linksBank: BigInt!
+}
+
+type User @entity {
+    id: Bytes!
+    address: Bytes!
+    lottery: FutureLottery!
+    contributedToCurrentLottery: BigInt!
+    linksToCurrentLottery: BigInt!
+    contributed: BigInt!
+    actualContributed: BigInt!
+    earned: BigInt!
+    linksCreated: BigInt!
+    openLinks: BigInt!
+    bids: [Contribution!]! @derivedFrom(field: "contributor")
+    bidsIds: [Bytes!]!
+}
+
+type KPI @entity {
+    id: ID!
+    usersIds: [Bytes!]!
+    totalUsers: BigInt!
+    totalContributed: BigInt!
+    totalCashback: BigInt!
+    totalActualContributed: BigInt!
+    totalLinksCreated: BigInt!
+    totalEarned: BigInt!
+    totalLottery: BigInt!
+    totalWon: BigInt!
+    totalToFund: BigInt!
+    totalFromFund: BigInt!
+    totalRefunded: BigInt!
+    totalDiscounts: BigInt!
+    totalLinksGifted: BigInt!
+}

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@graphprotocol/graph-ts": "^0.28.1",
+    "source-map-support": "^0.5.21"
+  }
+}

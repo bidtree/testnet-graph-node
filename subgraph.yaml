@@ -1,0 +1,37 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Bidtree
+    network: chapel
+    source:
+      address: "0xE435938eA400a35a7bA95E6848F59A3bfF990F4c"
+      abi: Bidtree
+      startBlock: 26449546
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Bidtree
+      abis:
+        - name: Bidtree
+          file: ./abi/Bidtree.json
+      eventHandlers:
+        - event: Contributed(address,address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint128)
+          handler: handleContributed
+        - event: Offset(address,uint256,uint256,uint256)
+          handler: handleOffset
+        - event: Lottery(uint256,address,uint256)
+          handler: handleLottery
+      file: ./graph/Bidtree.ts
+
+
+
+
+
+
+
+
+
